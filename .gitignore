@@ -1,0 +1,10 @@
+.env
+airflow/.env
+**/__pycache__/
+airflow/logs/
+backups/
+reports/all_jobs.html
+reports/*.csv
+reports/*failed.ipynb
+reports/*.log
+reports/*.pid

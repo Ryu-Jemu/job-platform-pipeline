@@ -1,0 +1,27 @@
+{
+  "desktop": {
+    "checked": 332,
+    "failures": [],
+    "minimum": 4.61
+  },
+  "overview": {
+    "checked": 109,
+    "failures": [],
+    "minimum": 4.65
+  },
+  "collection": {
+    "checked": 96,
+    "failures": [],
+    "minimum": 4.65
+  },
+  "mobile": {
+    "checked": 266,
+    "failures": [],
+    "minimum": 4.61
+  },
+  "mobileLayout": {
+    "height": 844,
+    "overflow": 0,
+    "width": 389
+  }
+}

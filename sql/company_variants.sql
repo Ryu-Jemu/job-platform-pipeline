@@ -1,0 +1,1 @@
+SELECT company_key,count(DISTINCT company_name) variants,array_agg(DISTINCT company_name) names FROM v_posting_scope GROUP BY company_key HAVING count(DISTINCT company_name)>1 ORDER BY variants DESC LIMIT 20;

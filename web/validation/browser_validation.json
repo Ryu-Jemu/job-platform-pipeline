@@ -1,0 +1,89 @@
+{
+  "asof": "2026-10-02 14:40:00+09:00",
+  "csv_hash": "fbbdf058b27405f173df2466e29bd7c0b70313c36655dfd5827fc1acc7a77fe0",
+  "canonical_rows": 4503,
+  "platform_rows": 4891,
+  "source_links": 4891,
+  "browser": "Chrome via cua_repl",
+  "desktop_css_width": 1161,
+  "mobile_css_viewport": {
+    "width": 389,
+    "height": 844
+  },
+  "horizontal_overflow_px": {
+    "desktop": 0,
+    "mobile": 0
+  },
+  "current_snapshot_checks": {
+    "header_totals_match_csv": true,
+    "compound_BE_saramin_Seoul_exp": {
+      "expected_csv": 752,
+      "actual_ui": 752
+    },
+    "Python_technology_only": {
+      "expected_csv": 172,
+      "actual_ui": 172
+    },
+    "unknown_status": {
+      "expected_csv": 12,
+      "actual_ui": 12,
+      "all_visible_labels": "판정 불가"
+    },
+    "technology_competencies_separate_arrays": true,
+    "downloaded_all_csv": {
+      "rows": 4503,
+      "competencies_field": true,
+      "internal_search_column": false,
+      "null_status_rows": 12
+    }
+  },
+  "interaction_checks": {
+    "pagination_next_range": "21–40",
+    "page_size_100": 100,
+    "company_search_musinsa": 7,
+    "empty_state": true,
+    "bookmark_filter": 1,
+    "filtered_csv_download_rows": 7,
+    "detail_filter_toggle": true,
+    "tabs_list_overview_collection": true
+  },
+  "interaction_checks_snapshot_note": "Pagination, search, empty state, bookmark and filtered CSV were verified on the prior 14:20 snapshot; current data scope and changed status/technology fields were reverified at 14:40.",
+  "contrast": {
+    "desktop": {
+      "checked": 332,
+      "failures": [],
+      "minimum": 4.61
+    },
+    "overview": {
+      "checked": 109,
+      "failures": [],
+      "minimum": 4.65
+    },
+    "collection": {
+      "checked": 96,
+      "failures": [],
+      "minimum": 4.65
+    },
+    "mobile": {
+      "checked": 266,
+      "failures": [],
+      "minimum": 4.61
+    },
+    "mobileLayout": {
+      "height": 844,
+      "overflow": 0,
+      "width": 389
+    }
+  },
+  "console_errors_or_warnings": [],
+  "screenshots": {
+    "desktop": "web/validation/desktop.png",
+    "mobile": "web/validation/mobile.png"
+  },
+  "viewport_override_reset": true,
+  "cdn_dependencies": 0,
+  "limitations": [
+    "Static report snapshot; regenerated with ETL/EDA reports.",
+    "Color contrast check covers rendered direct text and ancestor backgrounds, not a complete WCAG audit."
+  ]
+}

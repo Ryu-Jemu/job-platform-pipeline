@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>CareerRadar · 직무별 채용 공고</title>
+  <meta name="description" content="실제 웹 원천의 백엔드·데이터 분석·데이터 엔지니어링 공고를 검색하고 비교하는 채용 관측 보고서">
+  <!-- STYLES -->
+</head>
+<body>
+<a class="skip-link" href="#main">본문으로 바로가기</a>
+<header class="topbar">
+  <a class="brand" href="#list" aria-label="CareerRadar 공고 목록">
+    <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 12 19 5"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg></span>
+    <span>Career<span class="brand-accent">Radar</span><small>채용 시장 관측</small></span>
+  </a>
+  <div class="topbar-right"><span class="snapshot-label"><span class="dot"></span>검증된 수집 스냅샷</span><button class="button primary" id="export-top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5"/></svg>CSV 다운로드</button></div>
+</header>
+<div class="app-shell">
+  <aside class="sidebar" aria-label="보고서 탐색">
+    <span class="nav-caption">WORKSPACE</span>
+    <nav class="main-nav">
+      <a href="#list" class="nav-link active" data-panel="list" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg>공고 통합 목록<span class="nav-count" id="nav-count">—</span></a>
+      <a href="#overview" class="nav-link" data-panel="overview"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 16V9m5 7V4m5 12v-5"/></svg>관측 요약</a>
+      <a href="#collection" class="nav-link" data-panel="collection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 6 8-3 8 3-8 3-8-3Zm0 6 8 3 8-3M4 18l8 3 8-3"/></svg>수집 상태</a>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <span class="nav-caption">웹 원천 <span class="caption-count">4</span></span>
+    <div class="source-nav" id="source-nav"></div>
+    <div class="sidebar-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6m-6 3h6M9 15c0-3-4-3-4-7a7 7 0 0 1 14 0c0 4-4 4-4 7"/></svg><strong>숫자 뒤의 근거까지</strong><p>각 공고의 원천 링크를 모두 보존합니다. 통합 결과는 중복 후보에 대한 추정입니다.</p></div>
+    <div class="sidebar-bottom"><span class="mini-logo">CR</span><div>CareerRadar<small>ETL · EDA 프로젝트</small></div></div>
+  </aside>
+  <main id="main" class="main-content">
+    <section class="page-intro">
+      <div class="eyebrow"><span class="eyebrow-line"></span>채용 공고 탐색 <span class="eyebrow-separator">/</span> BE · DA · DE</div>
+      <div class="title-row"><div><h1 id="page-title">직무별 채용 공고 전체 목록</h1><p class="intro-description" id="page-description">여러 채용 사이트의 공고를 한곳에서, 원하는 조건으로 살펴보세요.</p></div><span id="dataset-status" class="status-pill partial">부분 관측</span></div>
+      <div class="observation-line"><span>관측 기준 <strong id="asof">—</strong></span><span>한국 표준시 · KST</span><span class="interval-label">10분 간격 관측</span></div>
+    </section>
+    <section class="metrics" aria-label="전체 관측 데이터 요약">
+      <article class="metric-card"><div class="metric-top"><span>통합 공고</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M9 5V3h6v2M4 11h16M10 11v2h4v-2"/></svg></div><strong id="total-jobs">—</strong><small>중복 후보 통합 후</small></article>
+      <article class="metric-card"><div class="metric-top"><span>원천 공고</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 6 8-3 8 3-8 3-8-3Zm0 6 8 3 8-3M4 18l8 3 8-3"/></svg></div><strong id="total-postings">—</strong><small>원천 링크 모두 보존</small></article>
+      <article class="metric-card"><div class="metric-top"><span>관측 기업</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V3h12v18M16 10h4v11M8 7h4M8 11h4M8 15h4M2 21h20"/></svg></div><strong id="total-companies">—</strong><small>통합 목록의 회사명 기준</small></article>
+      <article class="metric-card metric-highlight"><div class="metric-top"><span>복수 원천 공고</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 13 4-4m-6 8-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2-1 2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0"/></svg></div><strong id="total-shared">—</strong><small>2개 이상 사이트에 연결</small></article>
+    </section>
+    <div id="partial-notice" class="notice"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/></svg><p><strong>진행 중인 관측 결과입니다.</strong> <span id="partial-text">20:00 최종 슬롯 전의 부분 데이터이며, 수집 시작 전 구간은 소급 관측하지 않습니다.</span></p></div>
+    <section id="panel-list" class="panel">
+      <div class="filter-card">
+        <div class="filter-main">
+          <div class="search-field"><label class="sr-only" for="search">회사·공고명·기술 검색</label><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><input id="search" type="search" placeholder="회사 · 공고명 · 기술 검색" autocomplete="off"><kbd>⌘ K</kbd></div>
+          <label class="select-field"><span class="sr-only">직무 선택</span><select id="role"><option value="">전체 직무</option><option value="BE">BE · 백엔드</option><option value="DA">DA · 데이터 분석</option><option value="DE">DE · 데이터 엔지니어링</option></select></label>
+          <label class="select-field"><span class="sr-only">원천 플랫폼 선택</span><select id="source"><option value="">전체 원천</option><option value="saramin">사람인</option><option value="jobkorea">잡코리아</option><option value="incruit">인크루트</option><option value="linkareer">링커리어</option></select></label>
+          <button id="toggle-filters" class="button" aria-expanded="false" aria-controls="detail-filters"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16M8 4v6m8 4v6"/></svg>상세 필터<span id="active-count" hidden></span></button>
+        </div>
+        <div id="detail-filters" class="detail-filters" hidden>
+          <label>지역<select id="region"><option value="">전체 지역</option></select></label>
+          <label>경력<select id="career"><option value="">전체 경력</option><option value="new">신입</option><option value="exp">경력</option><option value="new_or_exp">신입·경력</option><option value="any">경력 무관</option><option value="unknown">미확인</option></select></label>
+          <label>마감 조건<select id="deadline"><option value="">전체 마감 조건</option><option value="date">날짜 지정</option><option value="always">상시 채용</option><option value="until_filled">채용 시 마감</option><option value="unknown">미확인</option></select></label>
+          <label>관측 상태<select id="open"><option value="">전체 상태</option><option value="true">전수 기준 열림</option><option value="false">관측에서 이탈</option><option value="unknown">판정 불가</option></select></label>
+          <label>기술 키워드<select id="skill"><option value="">전체 기술</option><option value="__unknown">미검출</option></select></label>
+          <label class="bookmark-filter"><input id="saved-only" type="checkbox">저장한 공고만</label>
+        </div>
+        <div class="filter-footer"><div><span class="result-label">검색 결과</span> <strong id="result-count" aria-live="polite">—</strong><span class="result-total" id="result-total"></span></div><button id="reset" class="text-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2 7M4 4v7h7"/></svg>필터 초기화</button></div>
+      </div>
+      <div class="list-toolbar"><div class="list-title">공고 목록 <span id="list-count" class="subtle-pill">—</span></div><div class="list-actions"><button class="text-button" id="export-filtered"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m-4-4 4 4 4-4M5 15v5h14v-5"/></svg>검색 결과 CSV</button><label class="sort-control"><span>정렬</span><select id="sort"><option value="seen-desc">최근 관측순</option><option value="posted-desc">게시일 최신순</option><option value="deadline-asc">마감일 빠른순</option><option value="company-asc">회사명순</option><option value="sources-desc">원천 많은순</option></select></label></div></div>
+      <div class="table-card"><div class="table-scroll"><table id="job-table"><caption class="sr-only">수집된 모든 통합 공고. 각 공고의 실제 원천 링크와 관측 기준 상태를 제공합니다.</caption><thead><tr><th scope="col" class="company-column">회사</th><th scope="col" class="title-column">공고명 · 채용 조건</th><th scope="col" class="skills-column">직무 · 기술</th><th scope="col" class="sources-column">출처 · 원천 링크</th><th scope="col" class="state-column">관측 상태</th><th scope="col" class="save-column"><span class="sr-only">저장</span></th></tr></thead><tbody id="rows"></tbody></table></div>
+        <div id="empty-state" class="empty-state" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg><strong>조건에 맞는 공고가 없습니다</strong><p>검색어 또는 필터를 바꿔 다시 살펴보세요.</p><button class="button" id="empty-reset">필터 초기화</button></div>
+        <div class="pagination"><div class="page-description"><label>페이지당 <select id="page-size"><option value="20">20개</option><option value="50">50개</option><option value="100">100개</option></select></label><span id="page-range">—</span></div><nav class="page-nav" id="page-nav" aria-label="공고 목록 페이지"></nav></div>
+      </div>
+      <p class="data-footnote"><span>i</span>열린 상태는 원천별 마지막 완료 전수 스캔의 관측 결과입니다. 현재 지원 가능 여부와 상세 조건은 원천 공고에서 확인하세요. <span class="bookmark-note">저장한 공고는 이 브라우저에 보관됩니다.</span></p>
+    </section>
+    <section id="panel-overview" class="panel" hidden><div class="section-heading"><div><h2>관측한 채용 시장 한눈에 보기</h2><p>현재 스냅샷의 통합 공고 기준입니다. 복수 직무 공고는 각 직무에 중복 집계됩니다.</p></div></div><div class="overview-grid"><article class="chart-card"><div class="chart-heading"><h3>직무별 공고</h3><span>통합 공고</span></div><div id="role-chart" class="bar-chart"></div><p class="chart-note">BE 백엔드 · DA 데이터 분석 · DE 데이터 엔지니어링</p></article><article class="chart-card"><div class="chart-heading"><h3>원천별 공고</h3><span>원천 공고</span></div><div id="source-chart" class="bar-chart"></div><p class="chart-note">같은 공고가 여러 원천에 있으면 원천별로 각각 집계합니다.</p></article><article class="chart-card"><div class="chart-heading"><h3>자주 검출된 기술</h3><span>상위 10개</span></div><div id="skill-chart" class="bar-chart"></div><p class="chart-note" id="skill-note"></p></article><article class="chart-card"><div class="chart-heading"><h3>관측 상태와 데이터 범위</h3><span>스냅샷 기준</span></div><div id="open-chart" class="bar-chart"></div><div class="method-note"><strong>해석할 때 확인하세요</strong><p>공고 수는 채용 인원 수가 아닙니다. 직무·기술은 수집 텍스트에 대한 사전 분류이며, 이미지와 사전 밖 표현은 관측하지 못할 수 있습니다.</p><p>변화량·상관·조건 비교와 검증 결과는 EDA 노트북에서 확인할 수 있습니다.</p></div></article></div></section>
+    <section id="panel-collection" class="panel" hidden><div class="section-heading"><div><h2>수집 상태와 관측 범위</h2><p id="operations-asof"></p></div><button id="export-sources" class="button">전체 원천 CSV</button></div><div class="collection-grid"><article class="chart-card"><h3>10분 슬롯 실행 상태</h3><div id="slot-grid" class="slot-grid"></div><div class="slot-legend"><span><i class="slot-success"></i>성공</span><span><i class="slot-missing"></i>수집 시작 전</span><span><i class="slot-future"></i>미래 슬롯</span><span><i class="slot-failed"></i>실패·기타</span></div><p id="slot-note" class="chart-note"></p></article><article class="chart-card"><h3>웹 원천 접근 확인</h3><div id="source-status" class="source-status"></div><p class="chart-note">API 키 없이 수집한 웹 4개 원천입니다. 원천의 전체 시장을 의미하지 않으며 설정한 직무 검색 범위에 한정됩니다.</p></article><article class="chart-card checks-card"><h3>산출물 검증</h3><div id="report-checks" class="report-checks"></div><p class="chart-note">HTML은 내장된 데이터를 보여주는 정적 스냅샷입니다. 새로운 데이터 반영은 ETL·EDA 산출물 재생성 시 이뤄집니다.</p></article></div></section>
+    <footer class="page-footer"><span>CareerRadar <span class="footer-dot">·</span> 웹 원천 4개 <span class="footer-dot">·</span> BE / DA / DE</span><span>원천 링크 보존 · 한국 표준시</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" hidden></div>
+<noscript><p class="noscript">공고 검색·필터·페이지를 이용하려면 JavaScript를 활성화하세요. reports/all_jobs.csv와 reports/all_platform_postings.csv에 전체 목록이 있습니다.</p></noscript>
+<!-- DATA -->
+<!-- APP -->
+</body>
+</html>

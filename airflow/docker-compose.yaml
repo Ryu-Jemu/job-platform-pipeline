@@ -1,0 +1,105 @@
+# job-platform-pipeline/airflow/docker-compose.yaml — 채용 공고 10분 스냅샷 DAG 전용 Airflow 3.3.1 (LocalExecutor)
+#
+#   docker compose up -d      # postgres / airflow-init(Exited 0) / dag-processor / scheduler / apiserver
+#   docker compose ps -a
+#   docker compose down       # 끝나면 내리기(8080 반납). 메타DB까지 지우려면 -v
+#
+# 골격은 시연 lab/docker-compose.yaml(kg-19-pipeline)과 같고, 바꾼 곳은 다섯 군데입니다.
+#   1. name: job-platform-pipeline — 다른 모듈 스택·볼륨과 섞이지 않게 격리
+#   2. JWT 시크릿을 이 프로젝트 전용 값으로(모든 서비스가 같은 값이어야 함)
+#   3. pip: requests·psycopg(커널과 같은 3.3.4)·bs4·lxml만. DAG 경로에서 pandas를 쓰지 않습니다
+#      (컨테이너 pandas 3.x와 노트북 커널 2.3.x의 차이를 피하려고)
+#   4. env_file의 JOBTREND_DSN(…@host.docker.internal:5432/job_platform_db)과 API 키 — 시연의 POSTGRES_DSN과 이름을 달리 해
+#      시연 DB(pipeline_db)에 잘못 적재하는 사고를 막습니다
+#   5. DAG는 생성 시 일시정지(명시) — 노트북이 수집 시간대에 맞춰 unpause합니다
+
+name: job-platform-pipeline
+x-airflow-common: &airflow-common
+  image: apache/airflow:3.3.1
+  environment: &airflow-common-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/dags
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-apiserver:8080/execution/'
+    AIRFLOW__API_AUTH__JWT_SECRET: 'job-platform-pipeline-jwt-2026-10-02'
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+    AIRFLOW__CORE__SIMPLE_AUTH_MANAGER_ALL_ADMINS: "True"
+    AIRFLOW__SCHEDULER__STANDALONE_DAG_PROCESSOR: "true"
+    AIRFLOW__DAG_PROCESSOR__REFRESH_INTERVAL: "30"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+    _PIP_ADDITIONAL_REQUIREMENTS: "requests>=2.31 psycopg[binary]==3.3.4 beautifulsoup4>=4.12 lxml>=5"
+  env_file:
+    - .env
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+  user: "${AIRFLOW_UID:-50000}:0"
+  depends_on: &airflow-common-depends-on
+    postgres:
+      condition: service_healthy
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 5s
+      retries: 10
+    restart: always
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate
+        echo "초기화 완료 — airflow-init은 이제 종료됩니다 (docker compose ps -a에서 Exited(0)이 정상)"
+    depends_on:
+      <<: *airflow-common-depends-on
+
+  airflow-dag-processor:
+    <<: *airflow-common
+    command: dag-processor
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+  airflow-apiserver:
+    <<: *airflow-common
+    command: api-server
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/version"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    restart: always
+    depends_on:
+      <<: *airflow-common-depends-on
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  airflow-pg-data:

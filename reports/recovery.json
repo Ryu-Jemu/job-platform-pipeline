@@ -1,0 +1,6 @@
+{
+  "run_id": "scheduled__2026-10-02T04:50:00+00:00",
+  "cause": "educationRequirements JSON object",
+  "action": "parse fix and rerun cached raw on latest version",
+  "api_status": 200
+}

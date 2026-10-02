@@ -1,0 +1,48 @@
+{
+  "run_key": "scheduled__2026-10-02T05:40:00+00:00",
+  "before": {
+    "raw_listing_page": 12,
+    "raw_posting_detail": 19,
+    "job_posting": 4891,
+    "posting_role": 5716,
+    "posting_snapshot": 21686,
+    "listing_metric": 100,
+    "posting_skill": 3125
+  },
+  "after_first": {
+    "raw_listing_page": 12,
+    "raw_posting_detail": 19,
+    "job_posting": 4891,
+    "posting_role": 5716,
+    "posting_snapshot": 21686,
+    "listing_metric": 100,
+    "posting_skill": 3125
+  },
+  "after_second": {
+    "raw_listing_page": 12,
+    "raw_posting_detail": 19,
+    "job_posting": 4891,
+    "posting_role": 5716,
+    "posting_snapshot": 21686,
+    "listing_metric": 100,
+    "posting_skill": 3125
+  },
+  "increase_second": {
+    "raw_listing_page": 0,
+    "raw_posting_detail": 0,
+    "job_posting": 0,
+    "posting_role": 0,
+    "posting_snapshot": 0,
+    "listing_metric": 0,
+    "posting_skill": 0
+  },
+  "new_run_master_growth": 0,
+  "experiment_rolled_back": true,
+  "dedup": {
+    "canonical_rows": [
+      4503,
+      4503
+    ],
+    "mapping_fingerprint_equal": true
+  }
+}

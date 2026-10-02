@@ -1,0 +1,384 @@
+{
+  "verified_at_kst": "2026-10-02T15:19:01.596987+09:00",
+  "analysis_asof": "2026-10-02 14:40:00+09:00",
+  "catalog": {
+    "canonical_rows": 4503,
+    "platform_rows": 4891,
+    "source_links": 4891
+  },
+  "local_demo_url": "http://127.0.0.1:8766/web/index.html",
+  "airflow": {
+    "dag_id": "jobtrend_snapshot_10min",
+    "dag_run_id": "scheduled__2026-10-02T06:10:00+00:00",
+    "state": "success",
+    "run_after": "2026-10-02T06:10:00Z",
+    "start_date": "2026-10-02T06:10:00.735659Z",
+    "end_date": "2026-10-02T06:10:18.792606Z"
+  },
+  "task_states": {
+    "check_quality": "success",
+    "open_run": "success",
+    "extract_raw": "success",
+    "transform_load": "success",
+    "resolve_duplicates": "success",
+    "route": "success",
+    "alert_and_fail": "skipped",
+    "finish": "success"
+  },
+  "finalizer_status_at_capture": "waiting_for_20_00",
+  "screenshots": [
+    {
+      "file": "docs/images/airflow-dag.png",
+      "sha256": "d919bda4f205ae8636a26f3f43c1517fd0be6f7e359d6473e245c4468418a491",
+      "bytes": 105087
+    },
+    {
+      "file": "docs/images/airflow-run-success.png",
+      "sha256": "a8cd88ae256fce1b0917dbfb3c9afd20b98000e64155dfa1b50ff73eb53d03c2",
+      "bytes": 108210
+    },
+    {
+      "file": "docs/images/careerradar-collection.png",
+      "sha256": "9ab44cea0c1e8925569dde8a3208873db44d57f6992bbd62015a9c6d95fd0294",
+      "bytes": 101874
+    },
+    {
+      "file": "docs/images/careerradar-desktop.png",
+      "sha256": "713baa254b10d8fa09787e862b95ceef27343938ed8b68c5e73e5092d8c45148",
+      "bytes": 116502
+    },
+    {
+      "file": "docs/images/careerradar-mobile.png",
+      "sha256": "d3fb7cd34ba37ae2e92660434bfb12f331d26b65b614833a2aa5ae05f7e379d3",
+      "bytes": 156813
+    },
+    {
+      "file": "docs/images/careerradar-overview.png",
+      "sha256": "8b53c5e19a8c4dc4ef3529c2146ef4f677d45b298e4c5a5ca75bb07896b3ab33",
+      "bytes": 104178
+    },
+    {
+      "file": "docs/images/careerradar-search.png",
+      "sha256": "a88ed18b6210baed800569be3f20c57c4fde7b27085d59d8cfc07d1dde088dc8",
+      "bytes": 116517
+    },
+    {
+      "file": "docs/images/eda-concentration.png",
+      "sha256": "00891f19689b6ec75de4d8f360333d1845a4970c7ae897f27bd5991492a6dae9",
+      "bytes": 91910
+    },
+    {
+      "file": "docs/images/eda-technologies.png",
+      "sha256": "d8c06b83cad7fe7f7e8078b821f084ad261678e7b1fe3fbb9112fe84c72dd809",
+      "bytes": 379782
+    }
+  ],
+  "scope_note": "웹·EDA는 14:40 저장 스냅샷; Airflow 증거는 15:10 성공 실행. 하루 최종 수집 완료는 아직 확인되지 않음.",
+  "analysis_validation": {
+    "asof": "2026-10-02 14:40:00+09:00",
+    "final_slot": false,
+    "validation": {
+      "canonical_coverage": 4503,
+      "platform_postings": 4891,
+      "company_sql_pandas": true,
+      "window_sql_pandas": true,
+      "flow_sql_set_pandas": true,
+      "skill_sql_pandas": true
+    },
+    "catalog": {
+      "canonical_rows": 4503,
+      "platform_rows": 4891,
+      "source_links": 4891
+    },
+    "checks": {
+      "SQL/pandas 교차 검증": true,
+      "원천 링크 누락 0": true,
+      "필수 값 누락 0": true,
+      "2070 센티널 잔존 0": true
+    }
+  },
+  "notebook_validation": {
+    "execution_verified": true,
+    "notebooks": {
+      "job_platform_etl.ipynb": {
+        "execution_verified": true,
+        "code_cells": 11,
+        "execution_count_contiguous": true,
+        "errors": 0,
+        "png_figures": 1,
+        "interpretations": 6,
+        "elapsed_s": 13.89
+      },
+      "job_platform_eda.ipynb": {
+        "execution_verified": true,
+        "code_cells": 10,
+        "execution_count_contiguous": true,
+        "errors": 0,
+        "png_figures": 11,
+        "interpretations": 10,
+        "elapsed_s": 11.94
+      }
+    },
+    "elapsed_s": 25.87
+  },
+  "idempotency": {
+    "run_key": "scheduled__2026-10-02T05:40:00+00:00",
+    "before": {
+      "raw_listing_page": 12,
+      "raw_posting_detail": 19,
+      "job_posting": 4891,
+      "posting_role": 5716,
+      "posting_snapshot": 21686,
+      "listing_metric": 100,
+      "posting_skill": 3125
+    },
+    "after_first": {
+      "raw_listing_page": 12,
+      "raw_posting_detail": 19,
+      "job_posting": 4891,
+      "posting_role": 5716,
+      "posting_snapshot": 21686,
+      "listing_metric": 100,
+      "posting_skill": 3125
+    },
+    "after_second": {
+      "raw_listing_page": 12,
+      "raw_posting_detail": 19,
+      "job_posting": 4891,
+      "posting_role": 5716,
+      "posting_snapshot": 21686,
+      "listing_metric": 100,
+      "posting_skill": 3125
+    },
+    "increase_second": {
+      "raw_listing_page": 0,
+      "raw_posting_detail": 0,
+      "job_posting": 0,
+      "posting_role": 0,
+      "posting_snapshot": 0,
+      "listing_metric": 0,
+      "posting_skill": 0
+    },
+    "new_run_master_growth": 0,
+    "experiment_rolled_back": true,
+    "dedup": {
+      "canonical_rows": [
+        4503,
+        4503
+      ],
+      "mapping_fingerprint_equal": true
+    }
+  },
+  "retry_concurrency_tests": {
+    "circuit": {
+      "requests": 1,
+      "outcomes": [
+        "blocked",
+        "circuit_open",
+        "circuit_open",
+        "circuit_open",
+        "circuit_open"
+      ]
+    },
+    "concurrency": {
+      "sequential_s": 0.7905217920197174,
+      "concurrent_s": 0.29165737505536526,
+      "equal_results": true,
+      "interval_violations": 0,
+      "min_interval_s": 0.12,
+      "transport": "고정 응답 가짜 전송; 운영은 2초",
+      "sequential_log": {
+        "A": [
+          [
+            0.00017675000708550215,
+            0.04027925000991672
+          ],
+          [
+            0.3319006669917144,
+            0.37296412501018494
+          ],
+          [
+            0.45690900000045076,
+            0.49970004201168194
+          ]
+        ],
+        "B": [
+          [
+            0.49984395800856873,
+            0.5407503329915926
+          ],
+          [
+            0.6235221670358442,
+            0.668070167012047
+          ],
+          [
+            0.7484730000142008,
+            0.7903567079920322
+          ]
+        ]
+      },
+      "concurrent_log": {
+        "A": [
+          [
+            7.466704118996859e-05,
+            0.04158658400410786
+          ],
+          [
+            0.1250954590504989,
+            0.17006370902527124
+          ],
+          [
+            0.24594133405480534,
+            0.29106175003107637
+          ]
+        ],
+        "B": [
+          [
+            0.00020108401076868176,
+            0.041422125010285527
+          ],
+          [
+            0.12512550002429634,
+            0.17030600004363805
+          ],
+          [
+            0.24599158402998,
+            0.2861288750427775
+          ]
+        ]
+      }
+    },
+    "retry": [
+      {
+        "status": 503,
+        "planned_s": 0.2,
+        "actual_s": 0.201
+      },
+      {
+        "status": 503,
+        "planned_s": 0.228,
+        "actual_s": 0.231
+      },
+      {
+        "status": 429,
+        "planned_s": 1.0,
+        "actual_s": 1.005
+      }
+    ],
+    "tests": {
+      "run": 7,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "browser_validation": {
+    "asof": "2026-10-02 14:40:00+09:00",
+    "csv_hash": "fbbdf058b27405f173df2466e29bd7c0b70313c36655dfd5827fc1acc7a77fe0",
+    "canonical_rows": 4503,
+    "platform_rows": 4891,
+    "source_links": 4891,
+    "browser": "Chrome via cua_repl",
+    "desktop_css_width": 1161,
+    "mobile_css_viewport": {
+      "width": 389,
+      "height": 844
+    },
+    "horizontal_overflow_px": {
+      "desktop": 0,
+      "mobile": 0
+    },
+    "current_snapshot_checks": {
+      "header_totals_match_csv": true,
+      "compound_BE_saramin_Seoul_exp": {
+        "expected_csv": 752,
+        "actual_ui": 752
+      },
+      "Python_technology_only": {
+        "expected_csv": 172,
+        "actual_ui": 172
+      },
+      "unknown_status": {
+        "expected_csv": 12,
+        "actual_ui": 12,
+        "all_visible_labels": "판정 불가"
+      },
+      "technology_competencies_separate_arrays": true,
+      "downloaded_all_csv": {
+        "rows": 4503,
+        "competencies_field": true,
+        "internal_search_column": false,
+        "null_status_rows": 12
+      }
+    },
+    "interaction_checks": {
+      "pagination_next_range": "21–40",
+      "page_size_100": 100,
+      "company_search_musinsa": 7,
+      "empty_state": true,
+      "bookmark_filter": 1,
+      "filtered_csv_download_rows": 7,
+      "detail_filter_toggle": true,
+      "tabs_list_overview_collection": true
+    },
+    "interaction_checks_snapshot_note": "Pagination, search, empty state, bookmark and filtered CSV were verified on the prior 14:20 snapshot; current data scope and changed status/technology fields were reverified at 14:40.",
+    "contrast": {
+      "desktop": {
+        "checked": 332,
+        "failures": [],
+        "minimum": 4.61
+      },
+      "overview": {
+        "checked": 109,
+        "failures": [],
+        "minimum": 4.65
+      },
+      "collection": {
+        "checked": 96,
+        "failures": [],
+        "minimum": 4.65
+      },
+      "mobile": {
+        "checked": 266,
+        "failures": [],
+        "minimum": 4.61
+      },
+      "mobileLayout": {
+        "height": 844,
+        "overflow": 0,
+        "width": 389
+      }
+    },
+    "console_errors_or_warnings": [],
+    "screenshots": {
+      "desktop": "web/validation/desktop.png",
+      "mobile": "web/validation/mobile.png"
+    },
+    "viewport_override_reset": true,
+    "cdn_dependencies": 0,
+    "limitations": [
+      "Static report snapshot; regenerated with ETL/EDA reports.",
+      "Color contrast check covers rendered direct text and ancestor backgrounds, not a complete WCAG audit."
+    ]
+  },
+  "eda_interpretations": [
+    "✍️ 목록이 제공하지 않는 학력·고용형태는 구조적 결측, 상시·채용시 마감일은 의미 있는 NULL, 상세 수집 대기와 수정 시각은 부분 결측, 양의 표시 총건수인데 파싱 0건인 경우는 파싱 실패로 구분한다. 매칭에 필요한 회사·제목·URL과 유효성 규칙을 별도로 점검했다.",
+    "✍️ 확인된 원천·직무·슬롯 관측값은 99개다. 오전 가동 전과 아직 도래하지 않은 슬롯은 결측이며, 링커리어는 전수 스캔 시점의 분류 건수만 표시한다. 원천 간 총건수 정의가 달라 크기를 직접 시장 점유율로 해석할 수 없다.",
+    "✍️ 비교 가능한 전수 간격 31개에서 유입 35건, 이탈 20건을 관측했다. 이는 최초 게시·실제 채용 성사 건수가 아니라 목록 ID의 등장·부재다. 같은 공고의 직무 중복과 시간 간격 차이가 있으므로 각 원천·질의 안에서 비교한다.",
+    "✍️ 정규화 기업 2,591개 중 상위 5%의 공고 점유율은 21.1%, 상위 10%는 31.4%, Gini는 0.337다. 헤드헌팅 업체와 다직무 공고가 포함돼 기업 공고 수가 고용 인원을 뜻하지 않는다.",
+    "✍️ 신입을 포함하는 공고 비율은 BE 14.7%, DA 20.5%, DE 21.0%다. 대표 공고 기준 수도권 비율은 86.8%이며 지역 결측도 분모에 포함했다. 직무가 여러 개인 통합 공고는 각 직무 안에서 한 번씩 집계한다.",
+    "✍️ 대표 게시 시각 결측률은 2.3%다. 게시일 분포는 이번에 목록에 남아 있던 공고의 분포이며 과거 일별 채용 수요 추이가 아니다. 상대 시각은 첫 관측 값으로 고정했고, 등록과 수정 표기는 구분했다.",
+    "✍️ 현재 판정에서 여러 원천에 게시된 통합 공고는 362건(8.0%)이다. 회사·제목·마감이 호환되는 후보를 묶은 추정치이며, 임계값별 민감도와 표본 검토를 함께 읽어야 한다. 링크 4,891개를 전체 목록에 보존했다.",
+    "✍️ 기술 키워드가 한 개 이상 검출된 통합 공고는 24.7%다. 제목·목록 태그와 읽을 수 있는 상세 텍스트를 사전으로 검색한 결과다. 이미지로만 제공된 자격요건과 사전 밖 표현은 관측하지 못하므로 미검출이 요구 없음으로 해석되지 않는다. 워드클라우드의 크기는 수요 인원이 아니라 공고 빈도다.",
+    "✍️ 상관은 인과관계를 뜻하지 않는다. p값·유효 쌍 수·상관 쌍의 BH FDR 보정 q값을 CSV에 보존하고 결측을 쌍별로 제외했다. 범주 검정은 단일 직무 공고만 사용해 복수 직무 689건을 제외했으며 기대빈도 5 미만인 검정의 p값은 보류한다. 범주 검정은 보정 전 탐색 통계이며, 어느 결과도 확증적 인과 결론으로 사용하지 않는다.",
+    "✍️ 변수별 IQR 규칙은 총 1,411개 관측값을 표시했다(동일 공고의 변수 중복 포함). IQR=0인 희소 키워드·신규 수에서는 양수가 모두 이상치가 될 수 있어 오류 판정으로 쓰지 않는다. 상시 마감의 NULL과 2070 센티널은 실제 마감까지 일수로 계산하지 않는다. Kruskal-Wallis 결과 {'H': np.float64(51.812161239068104), 'p': np.float64(5.612187074391804e-12), 'n': [2344, 296, 395]}도 탐색적이며 직무 분류·결측의 차이를 함께 고려해야 한다."
+  ],
+  "readme_validation": {
+    "checked_at_kst": "2026-10-02T15:34:16.378229+09:00",
+    "local_links_checked": 46,
+    "missing_links": [],
+    "images_checked": 9,
+    "balanced_code_fences": true,
+    "hero_and_search_recaptured": true,
+    "snapshot_unchanged": "2026-10-02 14:40:00+09:00"
+  }
+}

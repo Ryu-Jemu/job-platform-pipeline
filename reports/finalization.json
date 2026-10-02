@@ -1,0 +1,13 @@
+{
+  "updated_at": "2026-10-02T15:00:07.701670+09:00",
+  "pid": 68987,
+  "status": "waiting_for_20_00",
+  "final_slot": "2026-10-02T20:00:00+09:00",
+  "last_hourly_check": "2026-10-02T15:00:07.558824+09:00",
+  "coverage": {
+    "RUNNING": 1,
+    "FUTURE": 30,
+    "SUCCESS": 13,
+    "LEFT_TRUNCATED": 23
+  }
+}

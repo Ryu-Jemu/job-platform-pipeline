@@ -1,0 +1,1 @@
+WITH st AS (SELECT canonical_id,CASE WHEN bool_or(s.is_open) THEN true WHEN bool_or(s.is_open IS NULL) THEN NULL ELSE false END is_open FROM posting_canonical x JOIN v_posting_status s USING(platform,posting_id) GROUP BY canonical_id) SELECT j.*,st.is_open FROM v_job_scope j LEFT JOIN st USING(canonical_id) ORDER BY canonical_id;

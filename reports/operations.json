@@ -1,0 +1,405 @@
+{
+  "checked_at": "2026-10-02T15:00:07.558824+09:00",
+  "db": {
+    "running": true,
+    "restart_policy": "no"
+  },
+  "dag_paused": false,
+  "import_errors": 0,
+  "slots": [
+    {
+      "slot_kst": "2026-10-02T09:00:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T09:10:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T09:20:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T09:30:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T09:40:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T09:50:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:00:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:10:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:20:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:30:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:40:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T10:50:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:00:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:10:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:20:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:30:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:40:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T11:50:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:00:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:10:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:20:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:30:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:40:00+09:00",
+      "state": "LEFT_TRUNCATED"
+    },
+    {
+      "slot_kst": "2026-10-02T12:50:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:00:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:10:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:20:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:30:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:40:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T13:50:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:00:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:10:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:20:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:30:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:40:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T14:50:00+09:00",
+      "state": "SUCCESS"
+    },
+    {
+      "slot_kst": "2026-10-02T15:00:00+09:00",
+      "state": "RUNNING"
+    },
+    {
+      "slot_kst": "2026-10-02T15:10:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T15:20:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T15:30:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T15:40:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T15:50:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:00:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:10:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:20:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:30:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:40:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T16:50:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:00:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:10:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:20:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:30:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:40:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T17:50:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:00:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:10:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:20:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:30:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:40:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T18:50:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:00:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:10:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:20:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:30:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:40:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T19:50:00+09:00",
+      "state": "FUTURE"
+    },
+    {
+      "slot_kst": "2026-10-02T20:00:00+09:00",
+      "state": "FUTURE"
+    }
+  ],
+  "counts": {
+    "RUNNING": 1,
+    "FUTURE": 30,
+    "SUCCESS": 13,
+    "LEFT_TRUNCATED": 23
+  },
+  "sources": [
+    {
+      "platform": "alio",
+      "reason": "웹 원천만 포함: 사용자 선택, API 키 미등록",
+      "robots_status": null,
+      "allowed": false
+    },
+    {
+      "platform": "incruit",
+      "reason": "robots 직접 확인 (reports/robots_checks.json)",
+      "robots_status": 200,
+      "allowed": true
+    },
+    {
+      "platform": "jasoseol",
+      "reason": "robots 직접 확인 (reports/robots_checks.json)",
+      "robots_status": 403,
+      "allowed": false
+    },
+    {
+      "platform": "jobkorea",
+      "reason": "robots 직접 확인 (reports/robots_checks.json)",
+      "robots_status": 200,
+      "allowed": true
+    },
+    {
+      "platform": "linkareer",
+      "reason": "robots 직접 확인 (reports/robots_checks.json)",
+      "robots_status": 200,
+      "allowed": true
+    },
+    {
+      "platform": "rocketpunch",
+      "reason": "웹 원천만 포함: 사용자 선택, API 키 미등록",
+      "robots_status": null,
+      "allowed": false
+    },
+    {
+      "platform": "saramin",
+      "reason": "robots 직접 확인 (reports/robots_checks.json)",
+      "robots_status": 200,
+      "allowed": true
+    }
+  ],
+  "database_bytes": 68261555,
+  "relation_bytes": 59482112,
+  "full_scans": [
+    {
+      "platform": "incruit",
+      "query_key": "BE",
+      "slot_kst": "2026-10-02T14:50:00+09:00"
+    },
+    {
+      "platform": "incruit",
+      "query_key": "DA",
+      "slot_kst": "2026-10-02T14:50:00+09:00"
+    },
+    {
+      "platform": "incruit",
+      "query_key": "DE",
+      "slot_kst": "2026-10-02T14:50:00+09:00"
+    },
+    {
+      "platform": "jobkorea",
+      "query_key": "BE",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "jobkorea",
+      "query_key": "DA",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "jobkorea",
+      "query_key": "DE",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "linkareer",
+      "query_key": "IT",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "saramin",
+      "query_key": "BE",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "saramin",
+      "query_key": "DA",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    },
+    {
+      "platform": "saramin",
+      "query_key": "DE",
+      "slot_kst": "2026-10-02T14:00:00+09:00"
+    }
+  ],
+  "requests": [
+    {
+      "platform": "incruit",
+      "attempts": 45,
+      "retried_pages": 2
+    },
+    {
+      "platform": "jobkorea",
+      "attempts": 165,
+      "retried_pages": 0
+    },
+    {
+      "platform": "linkareer",
+      "attempts": 54,
+      "retried_pages": 0
+    },
+    {
+      "platform": "saramin",
+      "attempts": 131,
+      "retried_pages": 0
+    }
+  ]
+}

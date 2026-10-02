@@ -1,0 +1,24 @@
+{
+  "execution_verified": true,
+  "notebooks": {
+    "job_platform_etl.ipynb": {
+      "execution_verified": true,
+      "code_cells": 11,
+      "execution_count_contiguous": true,
+      "errors": 0,
+      "png_figures": 1,
+      "interpretations": 6,
+      "elapsed_s": 13.89
+    },
+    "job_platform_eda.ipynb": {
+      "execution_verified": true,
+      "code_cells": 10,
+      "execution_count_contiguous": true,
+      "errors": 0,
+      "png_figures": 11,
+      "interpretations": 10,
+      "elapsed_s": 11.94
+    }
+  },
+  "elapsed_s": 25.87
+}
