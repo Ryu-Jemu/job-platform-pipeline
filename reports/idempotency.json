@@ -1,31 +1,31 @@
 {
-  "run_key": "scheduled__2026-10-02T05:40:00+00:00",
+  "run_key": "scheduled__2026-10-02T07:20:00+00:00",
   "before": {
     "raw_listing_page": 12,
-    "raw_posting_detail": 19,
-    "job_posting": 4891,
-    "posting_role": 5716,
-    "posting_snapshot": 21686,
-    "listing_metric": 100,
-    "posting_skill": 3125
+    "raw_posting_detail": 0,
+    "job_posting": 4942,
+    "posting_role": 5772,
+    "posting_snapshot": 38208,
+    "listing_metric": 200,
+    "posting_skill": 3154
   },
   "after_first": {
     "raw_listing_page": 12,
-    "raw_posting_detail": 19,
-    "job_posting": 4891,
-    "posting_role": 5716,
-    "posting_snapshot": 21686,
-    "listing_metric": 100,
-    "posting_skill": 3125
+    "raw_posting_detail": 0,
+    "job_posting": 4942,
+    "posting_role": 5772,
+    "posting_snapshot": 38208,
+    "listing_metric": 200,
+    "posting_skill": 3154
   },
   "after_second": {
     "raw_listing_page": 12,
-    "raw_posting_detail": 19,
-    "job_posting": 4891,
-    "posting_role": 5716,
-    "posting_snapshot": 21686,
-    "listing_metric": 100,
-    "posting_skill": 3125
+    "raw_posting_detail": 0,
+    "job_posting": 4942,
+    "posting_role": 5772,
+    "posting_snapshot": 38208,
+    "listing_metric": 200,
+    "posting_skill": 3154
   },
   "increase_second": {
     "raw_listing_page": 0,
@@ -40,8 +40,8 @@
   "experiment_rolled_back": true,
   "dedup": {
     "canonical_rows": [
-      4503,
-      4503
+      4549,
+      4549
     ],
     "mapping_fingerprint_equal": true
   }

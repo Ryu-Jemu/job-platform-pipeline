@@ -1,4 +1,4 @@
-"""ETL → EDA를 각각 새 커널에서 실행하고 두 결과를 검증 후 저장한다."""
+"""ETL·EDA 분리본과 단일 커널 통합본을 실행하고 통과한 결과만 저장한다."""
 from pathlib import Path
 import os,json,time
 import nbformat
@@ -9,7 +9,8 @@ def run():
     os.chdir(ROOT)
     from build_etl_notebook import build_etl
     from build_eda_notebook import build_eda
-    originals={name:(ROOT/name).read_bytes() if (ROOT/name).exists() else None for name in NAMES}
+    from build_integrated_notebook import NAME as INTEGRATED, prepare_integrated, write_report
+    originals={name:(ROOT/name).read_bytes() if (ROOT/name).exists() else None for name in (*NAMES,INTEGRATED)}
     started=time.monotonic();executed={};results={}
     from dotenv import dotenv_values
     secrets=[(k,v) for p in (ROOT/'.env',ROOT/'airflow/.env') if p.exists()
@@ -42,6 +43,9 @@ def run():
             executed[name]=nb
             results[name]={'execution_verified':True,'code_cells':len(code),'execution_count_contiguous':True,
                            'errors':0,'png_figures':images,'interpretations':notes,'elapsed_s':round(time.monotonic()-cell_started,2)}
+        integrated,integrated_result=prepare_integrated(executed)
+        executed[INTEGRATED]=integrated
+        results[INTEGRATED]=integrated_result
         for name,nb in executed.items():
             tmp=ROOT/'reports'/name.replace('.ipynb','.verified.tmp')
             nbformat.write(nb,tmp);os.replace(tmp,ROOT/name)
@@ -51,6 +55,7 @@ def run():
             else:(ROOT/name).unlink(missing_ok=True)
         raise
     for p in sources.values():p.unlink(missing_ok=True)
+    write_report(integrated_result)
     result={'execution_verified':True,'notebooks':results,'elapsed_s':round(time.monotonic()-started,2)}
     (ROOT/'reports/notebook_validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2))
     print(json.dumps(result,ensure_ascii=False))

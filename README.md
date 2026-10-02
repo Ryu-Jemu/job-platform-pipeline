@@ -48,7 +48,7 @@ Airflow는 수집 → 정제 → 중복 통합 → 품질 검사 순서로 실�
 
 ## EDA와 분석 내용
 
-노트북은 **ETL 1개와 EDA 1개**로 나눴습니다. ETL은 원본 처리와 적재 과정을, EDA는 분석 질문·SQL·그림·해석을 담습니다. 분석에는 통합 공고를 사용하고, 원천 간 중복과 복수 직무가 집계에 미치는 영향을 함께 다룹니다.
+노트북은 **ETL 1개와 EDA 1개**로 나눴으며, 두 과정을 순서대로 담은 **통합 제출본**도 제공합니다. ETL은 원본 처리와 적재 과정을, EDA는 분석 질문·SQL·그림·해석을 담습니다. 분석에는 통합 공고를 사용하고, 원천 간 중복과 복수 직무가 집계에 미치는 영향을 함께 다룹니다.
 
 | 분석 주제 | 살펴보는 내용 |
 |---|---|
@@ -99,6 +99,7 @@ DB 연결, 배포와 자동 마무리 절차는 [운영 문서](docs/RUNBOOK.md)
 
 | 경로 | 내용 |
 |---|---|
+| [job_platform_integrated.ipynb](job_platform_integrated.ipynb) | ETL → EDA 전체 과정을 담은 통합 제출본 |
 | [job_platform_etl.ipynb](job_platform_etl.ipynb) | ETL 처리와 적재 과정 |
 | [job_platform_eda.ipynb](job_platform_eda.ipynb) | 분석 SQL·시각화·해석 |
 | [src/](src/) · [sql/](sql/) | 수집·정제·통합 모듈과 분석 쿼리 |

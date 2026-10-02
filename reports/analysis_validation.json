@@ -1,18 +1,18 @@
 {
-  "asof": "2026-10-02 14:40:00+09:00",
+  "asof": "2026-10-02 16:20:00+09:00",
   "final_slot": false,
   "validation": {
-    "canonical_coverage": 4503,
-    "platform_postings": 4891,
+    "canonical_coverage": 4549,
+    "platform_postings": 4942,
     "company_sql_pandas": true,
     "window_sql_pandas": true,
     "flow_sql_set_pandas": true,
     "skill_sql_pandas": true
   },
   "catalog": {
-    "canonical_rows": 4503,
-    "platform_rows": 4891,
-    "source_links": 4891
+    "canonical_rows": 4549,
+    "platform_rows": 4942,
+    "source_links": 4942
   },
   "checks": {
     "SQL/pandas 교차 검증": true,

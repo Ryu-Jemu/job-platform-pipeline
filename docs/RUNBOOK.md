@@ -29,7 +29,7 @@ PYTHONPATH=src /opt/anaconda3/bin/python scripts/operations.py
 /opt/anaconda3/bin/python scripts/build_web.py
 ```
 
-첫 명령은 ETL→EDA 순서로 별도 커널을 실행한다. 실패하면 기존 검증 결과물을 보존한다. 실제 웹 요청·배포는 하지 않는다. 마지막 명령은 CSV·운영 기록으로 독립 HTML을 만든다. 파일을 직접 열거나 `python -m http.server 8765`로 `http://localhost:8765/web/`를 열 수 있다. 외부 CDN은 필요하지 않다.
+첫 명령은 ETL·EDA를 각각 별도 커널에서 실행한 뒤 통합본을 한 새 커널에서 전체 실행한다. 세 노트북이 모두 통과하면 저장하고, 실패하면 기존 결과물을 보존한다. 실제 웹 요청·배포는 하지 않는다. 마지막 명령은 CSV·운영 기록으로 독립 HTML을 만든다. 파일을 직접 열거나 `python -m http.server 8765`로 `http://localhost:8765/web/`를 열 수 있다. 외부 CDN은 필요하지 않다.
 
 [notebook_validation.json](../reports/notebook_validation.json)은 오류·실행 순서·그림·해석·비밀 값 혼입 검사, [etl_validation.json](../reports/etl_validation.json)은 실제 ETL 시험, [analysis_validation.json](../reports/analysis_validation.json)은 SQL/pandas 독립 검증과 링크 전수 일치를 기록한다.
 
@@ -41,7 +41,7 @@ Airflow 3.3.1 LocalExecutor는 별도 Docker 스택에서 실행하며 UI는 `ht
 /opt/anaconda3/bin/python scripts/start_finalizer.py
 ```
 
-중복 기동을 막는 독립 프로세스가 매시 운영 상태를 기록하고 20:00 슬롯의 Airflow 종료를 확인한다. 이후 DAG pause → 완료 원본 replay·품질 검증 → 두 노트북 새 커널 실행 → CSV·웹 재빌드를 수행한다. [finalization.json](../reports/finalization.json)이 `complete`일 때만 최종 마무리가 확인된 것이다. 실패하면 `failed`와 이유를 남긴다. `waiting_for_20_00`은 수집 진행 중이다. 해당 날짜 종료 후에만 `scripts/finalize.py --final-now`로 재시도할 수 있다.
+중복 기동을 막는 독립 프로세스가 매시 운영 상태를 기록하고 20:00 슬롯의 Airflow 종료를 확인한다. 이후 DAG pause → 완료 원본 replay·품질 검증 → ETL·EDA·통합본 새 커널 실행 → CSV·웹 재빌드를 수행한다. [finalization.json](../reports/finalization.json)이 `complete`일 때만 최종 마무리가 확인된 것이다. 실패하면 `failed`와 이유를 남긴다. `waiting_for_20_00`은 수집 진행 중이다. 해당 날짜 종료 후에만 `scripts/finalize.py --final-now`로 재시도할 수 있다.
 
 [operations.json](../reports/operations.json)은 슬롯별 상태·마지막 완료 전수·DB 정책·import 오류를, [recovery.json](../reports/recovery.json)은 13:50 구조화 학력 파싱 오류와 보존 원본 재실행을 기록한다.
 
@@ -59,4 +59,12 @@ PYTHONPATH=src python scripts/deploy.py
 
 bootstrap은 전용 DB·스키마·원천 게이트를 초기화하고 Docker용 env가 없을 때만 만든다. 배포는 실행 중 DAG가 없는지 확인하고 패키지 후 DAG 순으로 교체한다. 현재 8080은 이 전용 스택이 사용 중이다. 다른 Airflow가 8080을 사용한다면 그 스택을 식별하고 포트 충돌을 먼저 해결해야 한다. 전용 스택을 내려 롤백할 때는 `docker compose ... down`만 사용하고 DB 볼륨은 보존한다.
 
-기존 단일 노트북과 생성기는 `backups/notebook_split/`로 보관했다. 제출 대상은 루트의 ETL·EDA 두 파일이다.
+기존 단일 노트북과 생성기는 `backups/notebook_split/`로 보관했다. 기본 제출물은 [통합본](../job_platform_integrated.ipynb)이며, ETL·EDA 분리본은 보조 자료다.
+
+## 분리본을 유지하며 통합본만 생성
+
+```sh
+/opt/anaconda3/bin/python scripts/build_integrated_notebook.py
+```
+
+기존 두 노트북의 코드 셀을 ETL→EDA 순서로 가져와 한 새 커널에서 실행한다. 원본 두 파일은 수정하지 않고 전후 SHA-256을 비교한다. 코드·출력·그림·해석 검사를 통과한 경우에만 통합본을 교체한다. [통합 실행 기록](../reports/integrated_notebook_validation.json)에 실행 순서와 코드 보존, 분리본 파일 보존 결과를 남긴다. 통합본 실행은 저장 원본을 재처리하므로 `reports/`의 분석·시험 기록과 CSV를 갱신한다. 각 노트북의 자료 기준은 해당 출력에서 확인한다.
