@@ -4,6 +4,8 @@
 
 사이트마다 다른 회사명·직무·채용 조건을 정규화하고, 여러 사이트에 게시된 같은 공고를 통합합니다. 통합 후에도 원천 링크를 보존해 개별 채용 정보를 찾아갈 수 있습니다.
 
+[프로젝트 가이드북 PDF](output/pdf/CareerRadar_Guidebook.pdf) · ETL 아키텍처와 주요 EDA 결과를 담은 2쪽 요약
+
 ![CareerRadar 공고 탐색 화면](docs/images/careerradar-desktop.png)
 
 ## 기술 스택
