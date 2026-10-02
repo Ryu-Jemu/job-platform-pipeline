@@ -1,6 +1,21 @@
 .env
+.env.*
+!.env.example
 airflow/.env
+.DS_Store
+._*
+.AppleDouble/
+.LSOverride
+Thumbs.db
+Desktop.ini
 **/__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
 airflow/logs/
 backups/
 reports/all_jobs.html
@@ -8,3 +23,4 @@ reports/*.csv
 reports/*failed.ipynb
 reports/*.log
 reports/*.pid
+reports/*.tmp
