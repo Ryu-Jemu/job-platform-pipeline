@@ -24,3 +24,8 @@ reports/*failed.ipynb
 reports/*.log
 reports/*.pid
 reports/*.tmp
+reports/*.json
+docs/NOTION-RUBRIC.md
+docs/report-evidence.json
+web/build_manifest.json
+web/validation/

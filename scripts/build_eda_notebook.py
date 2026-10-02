@@ -14,7 +14,7 @@ def build_eda(output_path=None):
 
 **분석 질문:** BE·DA·DE의 관측 공고 구성, 기술 키워드와 원천 간 중복은 어떻게 다른가?
 
-사람인·잡코리아·인크루트·링커리어의 실제 저장 자료를 분석한다. [ETL 노트북](job_platform_etl.ipynb)은 수집·재시도·원본 분리·멱등성을 검증한다. 이 파일은 [Notion 평가 기준](docs/NOTION-RUBRIC.md)의 6 의미 있는 SQL, 7 실제 데이터 차트, 8 결측·분포 판단, 9 실행 결과 보존을 담당한다.
+사람인·잡코리아·인크루트·링커리어의 실제 저장 자료를 분석한다. [ETL 노트북](job_platform_etl.ipynb)은 수집·재시도·원본 분리·멱등성을 검증한다. 이 파일은 공고 구성·변화·기술과 결측을 집계하고 실제 관측값을 시각화한다.
 
 2026-10-02 09:00~20:00 KST가 계획 범위이며 실제 수집은 12:50부터 시작했다. 오전 23틱은 좌절단이다. 20:00 전 출력은 부분 관측이고 빠진 시간의 값을 채우지 않는다.
 
@@ -106,11 +106,11 @@ display(Markdown(eda.chart_q8(snapshot,stats8)))''',True)
     code('''stats9=eda.stats_q9(snapshot)
 display(stats9[0].round(3))
 display(Markdown(eda.chart_q9(snapshot,stats9)))''',True)
-    md('''## 분석 증거와 재실행
+    md('''## 분석 결과와 재실행
 
-[전체 공고 웹 화면](web/index.html) · [통합 공고 CSV](reports/all_jobs.csv) · [원천 공고 CSV](reports/all_platform_postings.csv) · [상관 통계](reports/Q8_rho.csv) · [IQR 경계](reports/Q9_bounds.csv)
+[전체 공고 웹 화면](web/index.html) · [운영 문서](docs/RUNBOOK.md)
 
-코드와 결과를 함께 저장했다. 새 커널에서 처음부터 끝까지 실행하고 오류·실행 순서·그림·해석·비밀 값 혼입을 검사한다. 수집을 다시 요청하지 않는다. 20:00 최종 실행이 종료되면 자동 마무리 프로세스가 두 노트북과 웹 자료를 갱신한다. 실제 상태는 [finalization.json](reports/finalization.json)에 기록된다.
+저장 자료로 다시 분석하려면 프로젝트 폴더에서 `python scripts/run_notebook.py`를 실행한다. 통합·원천 공고, 상관 통계와 IQR 경계 CSV는 `reports/`에 생성된다. 20:00 최종 실행이 종료되면 자동 마무리 프로세스가 세 노트북과 웹 자료를 갱신한다.
 
 이 자료는 하루의 부분 관측·플랫폼 직무 코드의 범위 차이·목록 광고와 끌어올리기·상세 수집 대기·살아남은 공고의 편향을 포함한다. 기업별 공고 수는 고용 인원이 아니며 중복 통합과 키워드 검출은 추정이다.''')
     code('''with store.connect() as conn:

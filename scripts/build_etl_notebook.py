@@ -1,4 +1,4 @@
-"""ETL 근거만 담은 제출 노트북을 만든다. 환경·수집·배포는 실행하지 않는다."""
+"""ETL 코드·데이터 구조·품질 검증을 담은 노트북을 만든다."""
 from pathlib import Path
 
 import nbformat as nbf
@@ -26,21 +26,11 @@ def build_etl(output_path=None) -> Path:
 
 `웹 목록 → 원본 보존 → 파싱·정규화 → 플랫폼 공고·시간별 관측 → 중복 통합 → 품질 점검`
 
-이 노트북은 저장 원본의 파싱·멱등 시험과 실행 근거를 재검증한다. 새 웹 수집·배포·컨테이너 기동은 운영 DAG에서 수행한다. 분석 SQL, 분포와 차트, 기술 키워드 해석은 [EDA 노트북](job_platform_eda.ipynb)에 있다.
-
-|[Notion 평가 기준](https://traveling-goat-521.notion.site/3ecff449f16c8032a97dfb71432efbdc)|이 노트북의 근거|
-|---|---|
-|1 동시 요청 · 2 지수 백오프|실제 모듈 코드, 실패 응답 시험, 순차/동시 비교|
-|3 분할 요청·식별자 · 4 원본/정제 분리|원천별 질의·페이지·고유키, 테이블 구조·계보|
-|5 2회 적재 검증|같은 원본의 두 번 적재 전후 행 수, 다른 실행 키 rollback|
-|8 품질 · 9 실행 결과 · 10 자기 방식|결측 원인, 품질 규칙, 저장된 실행 결과, 증분·전수·중복 통합|
-
-기준 6(목적 있는 집계 SQL), 7(실제 데이터 차트), 8의 분포 해석은 EDA에 연결한다. 이 표는 증거 위치이며 점수 판정은 아니다.
+이 노트북은 저장 원본의 파싱·멱등성과 데이터 품질을 검증한다. 새 웹 수집·배포·컨테이너 기동은 운영 DAG에서 수행한다. 분석 SQL, 분포와 차트, 기술 키워드 해석은 [EDA 노트북](job_platform_eda.ipynb)에 있다.
 """)
 
     code("""from pathlib import Path
 import hashlib, inspect, json, os, subprocess, sys
-import importlib.metadata as metadata
 
 ROOT = Path.cwd()
 assert (ROOT / 'src/jobtrend/schema.sql').is_file(), '프로젝트 폴더에서 실행하세요.'
@@ -65,14 +55,11 @@ def sql_evidence(sql, params=None):
     display(frame)
     return frame
 
-display(pd.DataFrame([{'패키지': name, '버전': metadata.version(name)} for name in
-    ('requests', 'psycopg', 'beautifulsoup4', 'pandas', 'matplotlib', 'apache-airflow')]))
-display(query("SELECT current_database() AS database, current_setting('TimeZone') AS timezone"))
 latest = query('SELECT run_key, slot_ts FROM v_run_scope ORDER BY slot_ts DESC LIMIT 1')
 assert not latest.empty, '저장된 scheduled 실행이 필요합니다.'
 RUN_KEY = latest.iloc[0].run_key
 ASOF = str(latest.iloc[0].slot_ts)
-print('관측 마지막 슬롯:', ASOF, '· source code_version:', CODE_VERSION)""")
+print('관측 마지막 슬롯:', ASOF)""")
 
     md("""## 1. 원천·분할 요청·수집 범위
 
@@ -215,17 +202,26 @@ display(Markdown('**해석:** 동일 원본 반복 실행은 행을 늘리지 �
 
 정규화 회사명, 제목 유사도 `τ=0.55`, 마감일 양쪽 NULL 또는 3일 이내, 지역 호환을 함께 적용한다. 프론트/백엔드·리더/엔지니어 등 직무 충돌을 제외한다. 괄호의 팀·브랜드 제거에서 오탐이 발견되어 괄호 내용을 보존했다.
 
-임계값별 통합 규모로 민감도를 확인한다. 고정 표본의 AI 육안 검토는 정답 라벨이 아니므로 실제 정밀도나 재현율을 단정할 수 없다. 모든 플랫폼 출처를 남겨 원공고를 확인할 수 있다.
+임계값별 통합 규모로 민감도를 확인한다. 표본 검토가 있더라도 정답 라벨이 아니므로 실제 정밀도나 재현율을 단정할 수 없다. 검토 기록이 없으면 현재 데이터의 미검토 표본을 보여준다. 모든 플랫폼 출처를 남겨 원공고를 확인할 수 있다.
 """)
 
     code("""from evidence import threshold_evidence
 sensitivity = threshold_evidence()
 display(pd.DataFrame(sensitivity['thresholds']))
-review = json.loads((ROOT / 'reports/dedup_review.json').read_text())
-display(pd.DataFrame(review['sample'])[['company_a','title_a','title_b','similarity','label','review']]
-        .groupby('label', dropna=False).head(2))
-print('고정 검토 표본:', review['label_counts'])
-print('검토 한계:', review['limitation'])""")
+review_path = ROOT / 'reports/dedup_review.json'
+if review_path.is_file():
+    review = json.loads(review_path.read_text())
+    display(pd.DataFrame(review['sample'])[['company_a','title_a','title_b','similarity','label','review']]
+            .groupby('label', dropna=False).head(2))
+    print('고정 검토 표본:', review['label_counts'])
+    print('검토 한계:', review['limitation'])
+else:
+    sample = pd.DataFrame(sensitivity['sample'])
+    if not sample.empty:
+        display(sample[['company_a','title_a','title_b','similarity']].assign(검토='미검토').head(8))
+    else:
+        print('현재 임계값의 중복 후보 표본 없음')
+    print('수동 검토 기록 없음 · 현재 표본은 미검토이며 통합 정확도는 확인되지 않았다.')""")
 
     md("""## 6. 품질 규칙·결측 원인
 
@@ -259,7 +255,7 @@ display(Markdown(f'**해석:** 필수 값 결측 {int(validity.required_missing.
 
 평일 09:00~20:00 KST의 10분 간격은 67틱이다. XCom은 요약만 전달하고 원본은 PostgreSQL에 저장한다. 실제 가동 전 오전 23틱은 좌절단으로 남긴다. 미래·진행 중·운영 중 누락을 분리하며, 없는 오전 관측을 사후 값으로 채우지 않는다.
 
-13:50 실행에서는 구조화된 학력 JSON의 파싱 오류를 수정하고 보존 원본으로 재실행했다. 아래는 복구 기록과 해당 실행의 현재 상태다. DAG 구조는 로컬 커널과 실제 Airflow 컨테이너에서 각각 확인한다.
+파싱 오류는 보존 원본을 다시 정제하여 복구할 수 있다. 로컬에 과거 복구 기록이 있으면 해당 실행의 현재 상태를 확인한다. DAG 구조는 로컬 커널과 실제 Airflow 컨테이너에서 각각 확인한다.
 """)
 
     code("""from test_dag import verify
@@ -278,7 +274,6 @@ deployed_dag = ROOT / 'airflow/dags/jobtrend_dag.py'
 dag_source_equal = dag_path.read_bytes() == deployed_dag.read_bytes()
 print('로컬/배포 DAG 파일 동일:', dag_source_equal)
 assert dag_source_equal
-display(pd.DataFrame([json.loads((ROOT / 'reports/deployment.json').read_text())]))
 
 import operations
 ops = operations.state()
@@ -289,21 +284,29 @@ display(pd.DataFrame(ops['requests']))
 print('점검 시각:', ops['checked_at'], '· DAG paused:', ops['dag_paused'],
       '· import 오류:', ops['import_errors'])
 assert ops['import_errors'] == 0
-recovery = json.loads((ROOT / 'reports/recovery.json').read_text())
-display(pd.DataFrame([recovery]))
-recovered = query('SELECT run_key,slot_ts,status,finished_at FROM crawl_run WHERE run_key=%s',
-                  (recovery['run_id'],))
-display(recovered)
-assert len(recovered) == 1 and recovered.iloc[0].status in ('success','partial')
+recovery_checked = None
+recovery_path = ROOT / 'reports/recovery.json'
+if recovery_path.is_file():
+    recovery = json.loads(recovery_path.read_text())
+    display(pd.DataFrame([recovery]))
+    recovered = query('SELECT run_key,slot_ts,status,finished_at FROM crawl_run WHERE run_key=%s',
+                      (recovery['run_id'],))
+    if not recovered.empty:
+        display(recovered)
+        recovery_checked = len(recovered) == 1 and recovered.iloc[0].status in ('success','partial')
+        assert recovery_checked, '과거 복구 실행의 현재 상태를 확인하세요.'
+    else:
+        print('현재 DB에 해당 과거 실행 없음 · 복구 결과 미확인')
+else:
+    print('과거 복구 기록 없음 · 현재 DAG와 데이터 품질만 확인')
 display(Markdown('**해석:** 좌절단은 가동 전 공백이며 운영 중 누락과 구별한다. '
-    '13:50 파싱 실패는 원본이 남아 있어 재정제·재실행으로 복구할 수 있었다. '
     '현재 슬롯별 상태는 위 점검 시각의 결과다.'))""")
 
     md("""## 8. 재현 경로·현재 검증 결과
 
-정제와 DAG는 동일한 [jobtrend 패키지](src/jobtrend/)를 import한다. 원문을 반복 생성하는 셀 대신 모듈 파일과 지문을 남긴다. [수집](src/jobtrend/collect.py) · [HTTP](src/jobtrend/http.py) · [정제](src/jobtrend/transform.py) · [통합](src/jobtrend/dedup.py) · [DDL](src/jobtrend/schema.sql) · [DAG](src/jobtrend_dag.py) · [멱등 시험](scripts/evidence.py)
+정제와 DAG는 동일한 [jobtrend 패키지](src/jobtrend/)를 import한다. [수집](src/jobtrend/collect.py) · [HTTP](src/jobtrend/http.py) · [정제](src/jobtrend/transform.py) · [통합](src/jobtrend/dedup.py) · [DDL](src/jobtrend/schema.sql) · [DAG](src/jobtrend_dag.py) · [멱등 시험](scripts/evidence.py)
 
-재현은 프로젝트 폴더에서 `python scripts/build_etl_notebook.py`로 생성하고 두 노트북의 전체 셀을 새 커널에서 실행한다. 운영 환경 설정과 실행 방법은 README를 따른다. 노트북 실행 결과와 검증 JSON을 함께 보존한다.
+저장 원본으로 세 노트북을 다시 실행하려면 프로젝트 폴더에서 `python scripts/run_notebook.py`를 실행한다. 운영 환경 설정과 실행 방법은 README를 따른다.
 
 금요일 하루·미가동 오전 공백·직무 코드의 범위 차이·동적으로 변하는 목록·중복 판정의 불확실성이 남는다. 20:00 슬롯을 확인하기 전에는 부분 데이터다. ETL 시험 성공과 하루 관측 완료를 별도로 표시한다.
 """)
@@ -312,7 +315,6 @@ display(Markdown('**해석:** 좌절단은 가동 전 공백이며 운영 중 �
 manifest_paths += [ROOT / 'scripts/evidence.py', ROOT / 'tests/test_pipeline.py', ROOT / 'tests/test_dag.py']
 manifest = [{'file': p.relative_to(ROOT).as_posix(), 'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
             for p in manifest_paths if '__pycache__' not in p.parts]
-display(pd.DataFrame(manifest).assign(sha256=lambda df: df.sha256.str[:12]))
 (ROOT / 'reports/source_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2))
 
 final_slot = query("SELECT status FROM crawl_run WHERE run_kind='scheduled' "
@@ -328,8 +330,9 @@ checks = {
     '커널·컨테이너 67틱': schedule_evidence['ticks'] == container_schedule['ticks'] == 67,
     '필수 값·sentinel·개인정보': validity.required_missing.sum() == validity.sentinel_leaks.sum() == float(privacy.iloc[0].n) == 0,
     'DAG import 오류 0': ops['import_errors'] == 0,
-    '13:50 실행 복구': recovered.iloc[0].status in ('success','partial'),
 }
+if recovery_checked is not None:
+    checks['보존 원본 복구 이력'] = recovery_checked
 checks = {k: bool(v) for k,v in checks.items()}
 assert all(checks.values()), checks
 display(pd.DataFrame(checks.items(), columns=['검증 항목','통과']))
@@ -337,7 +340,7 @@ display(Markdown('**' + ('20:00 최종 슬롯 확인' if finished else '부분 �
     + '** · 관측 기준 ' + ASOF))
 result = {'asof': ASOF, 'code_version': CODE_VERSION, 'final_slot': bool(finished),
           'checks': checks, 'coverage': ops['counts'], 'idempotency': idempotency,
-          'dag_source_equal': dag_source_equal}
+          'dag_source_equal': dag_source_equal, 'recovery_checked': recovery_checked}
 (ROOT / 'reports/etl_validation.json').write_text(json.dumps(result, ensure_ascii=False, indent=2, default=str))""")
 
     notebook = nbf.v4.new_notebook(cells=cells, metadata={

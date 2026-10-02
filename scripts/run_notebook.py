@@ -3,6 +3,7 @@ from pathlib import Path
 import os,json,time
 import nbformat
 from nbclient import NotebookClient
+from notebook_artifacts import project_notebook
 ROOT=Path(__file__).resolve().parents[1]
 NAMES=('job_platform_etl.ipynb','job_platform_eda.ipynb')
 def run():
@@ -48,7 +49,7 @@ def run():
         results[INTEGRATED]=integrated_result
         for name,nb in executed.items():
             tmp=ROOT/'reports'/name.replace('.ipynb','.verified.tmp')
-            nbformat.write(nb,tmp);os.replace(tmp,ROOT/name)
+            nbformat.write(project_notebook(nb),tmp);os.replace(tmp,ROOT/name)
     except Exception:
         for name,content in originals.items():
             if content is not None:(ROOT/name).write_bytes(content)
